@@ -1,0 +1,7 @@
+rm -rf bin
+mkdir bin
+gcc -m32 -Os -fomit-frame-pointer -S -Iinc src/asm.c -o bin/asm.s
+gcc -m32 -Os -fomit-frame-pointer -S -Iinc src/main.c -o bin/main.s
+gcc -m32 -c bin/asm.s -o bin/asm.o
+gcc -m32 -c bin/main.s -o bin/main.o
+gcc -Iinc bin/asm.o bin/main.o -o bin/asm

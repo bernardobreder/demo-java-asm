@@ -1,0 +1,86 @@
+
+int main(int argc, char** argv) {
+	long a = argc;
+	a *= 0x596179C3;
+	return argc * 0x596179C3;
+}
+
+64 bits Debug
+hello.o:
+(__TEXT,__text) section
+0000000000000000 55 48 89 e5 89 7d fc 48 89 75 f0 8b 45 fc 48 63 
+0000000000000010 c0 48 89 45 e0 48 8b 45 e0 48 b9 c3 79 61 59 00 
+0000000000000020 00 00 00 48 0f af c1 48 89 45 e0 8b 45 fc 69 c0 
+0000000000000030 c3 79 61 59 89 45 e8 8b 45 e8 89 45 ec 8b 45 ec 
+0000000000000040 5d c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	pushq	%rbp
+0000000000000001	movq	%rsp, %rbp
+0000000000000004	movl	%edi, -4(%rbp)
+0000000000000007	movq	%rsi, -16(%rbp)
+000000000000000b	movl	-4(%rbp), %eax
+000000000000000e	movslq	%eax, %rax
+0000000000000011	movq	%rax, -32(%rbp)
+0000000000000015	movq	-32(%rbp), %rax
+0000000000000019	movabsq	$1499560387, %rcx
+0000000000000023	imulq	%rcx, %rax
+0000000000000027	movq	%rax, -32(%rbp)
+000000000000002b	movl	-4(%rbp), %eax
+000000000000002e	imull	$1499560387, %eax, %eax
+0000000000000034	movl	%eax, -24(%rbp)
+0000000000000037	movl	-24(%rbp), %eax
+000000000000003a	movl	%eax, -20(%rbp)
+000000000000003d	movl	-20(%rbp), %eax
+0000000000000040	popq	%rbp
+0000000000000041	ret
+32 bits Debug
+hello.o:
+(__TEXT,__text) section
+00000000 55 89 e5 83 ec 14 8b 45 0c 8b 4d 08 89 4d fc 89 
+00000010 45 f8 8b 45 fc 89 45 ec 8b 45 ec 69 c0 c3 79 61 
+00000020 59 89 45 ec 8b 45 fc 69 c0 c3 79 61 59 89 45 f0 
+00000030 8b 45 f0 89 45 f4 8b 45 f4 83 c4 14 5d c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	pushl	%ebp
+00000001	movl	%esp, %ebp
+00000003	subl	$20, %esp
+00000006	movl	12(%ebp), %eax
+00000009	movl	8(%ebp), %ecx
+0000000c	movl	%ecx, -4(%ebp)
+0000000f	movl	%eax, -8(%ebp)
+00000012	movl	-4(%ebp), %eax
+00000015	movl	%eax, -20(%ebp)
+00000018	movl	-20(%ebp), %eax
+0000001b	imull	$1499560387, %eax, %eax
+00000021	movl	%eax, -20(%ebp)
+00000024	movl	-4(%ebp), %eax
+00000027	imull	$1499560387, %eax, %eax
+0000002d	movl	%eax, -16(%ebp)
+00000030	movl	-16(%ebp), %eax
+00000033	movl	%eax, -12(%ebp)
+00000036	movl	-12(%ebp), %eax
+00000039	addl	$20, %esp
+0000003c	popl	%ebp
+0000003d	ret
+64 bits Release
+hello.o:
+(__TEXT,__text) section
+0000000000000000 69 c7 c3 79 61 59 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	imull	$1499560387, %edi, %eax
+0000000000000006	ret
+32 bits Release
+hello.o:
+(__TEXT,__text) section
+00000000 69 44 24 04 c3 79 61 59 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	imull	$1499560387, 4(%esp), %eax
+00000008	ret

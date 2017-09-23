@@ -1,0 +1,82 @@
+int main(int argc, char** argv) {
+	//long a = 1L;
+	return argc / (int)argv;
+}
+
+64 bits Debug
+hello.o:
+(__TEXT,__text) section
+0000000000000000 55 48 89 e5 89 7d fc 48 89 75 f0 48 8b 45 f0 8b 
+0000000000000010 4d fc 89 45 e4 89 c8 99 8b 4d e4 f7 f9 89 45 e8 
+0000000000000020 89 45 ec 8b 45 ec 5d c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	pushq	%rbp
+0000000000000001	movq	%rsp, %rbp
+0000000000000004	movl	%edi, -4(%rbp)
+0000000000000007	movq	%rsi, -16(%rbp)
+000000000000000b	movq	-16(%rbp), %rax
+000000000000000f	movl	-4(%rbp), %ecx
+0000000000000012	movl	%eax, -28(%rbp)
+0000000000000015	movl	%ecx, %eax
+0000000000000017	cltd
+0000000000000018	movl	-28(%rbp), %ecx
+000000000000001b	idivl	%ecx
+000000000000001d	movl	%eax, -24(%rbp)
+0000000000000020	movl	%eax, -20(%rbp)
+0000000000000023	movl	-20(%rbp), %eax
+0000000000000026	popq	%rbp
+0000000000000027	ret
+32 bits Debug
+hello.o:
+(__TEXT,__text) section
+00000000 55 89 e5 83 ec 14 8b 45 0c 8b 4d 08 89 4d fc 89 
+00000010 45 f8 8b 45 f8 8b 4d fc 89 45 ec 89 c8 99 8b 4d 
+00000020 ec f7 f9 89 45 f0 89 45 f4 8b 45 f4 83 c4 14 5d 
+00000030 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	pushl	%ebp
+00000001	movl	%esp, %ebp
+00000003	subl	$20, %esp
+00000006	movl	12(%ebp), %eax
+00000009	movl	8(%ebp), %ecx
+0000000c	movl	%ecx, -4(%ebp)
+0000000f	movl	%eax, -8(%ebp)
+00000012	movl	-8(%ebp), %eax
+00000015	movl	-4(%ebp), %ecx
+00000018	movl	%eax, -20(%ebp)
+0000001b	movl	%ecx, %eax
+0000001d	cltd
+0000001e	movl	-20(%ebp), %ecx
+00000021	idivl	%ecx
+00000023	movl	%eax, -16(%ebp)
+00000026	movl	%eax, -12(%ebp)
+00000029	movl	-12(%ebp), %eax
+0000002c	addl	$20, %esp
+0000002f	popl	%ebp
+00000030	ret
+64 bits Release
+hello.o:
+(__TEXT,__text) section
+0000000000000000 89 f8 99 f7 fe c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	movl	%edi, %eax
+0000000000000002	cltd
+0000000000000003	idivl	%esi
+0000000000000005	ret
+32 bits Release
+hello.o:
+(__TEXT,__text) section
+00000000 8b 44 24 04 99 f7 7c 24 08 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	movl	4(%esp), %eax
+00000004	cltd
+00000005	idivl	8(%esp)
+00000009	ret

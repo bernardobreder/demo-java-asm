@@ -1,0 +1,23 @@
+echo "64 bits Debug"
+gcc -m64 -S hello.c
+gcc -m64 -c hello.s
+otool -t hello.o
+otool -tv hello.o
+
+echo "32 bits Debug"
+gcc -m32 -S hello.c
+gcc -m32 -c hello.s
+otool -t hello.o
+otool -tv hello.o
+
+#echo "64 bits Release"
+#gcc -m64 -Os -fomit-frame-pointer -S hello.c
+#gcc -m64 -c hello.s
+#otool -t hello.o
+#otool -tv hello.o
+
+#echo "32 bits Release"
+#gcc -m32 -Os -fomit-frame-pointer -S hello.c
+#gcc -m32 -c hello.s
+#otool -t hello.o
+#otool -tv hello.o

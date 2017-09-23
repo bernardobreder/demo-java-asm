@@ -1,0 +1,104 @@
+
+int main(int argc, char** argv) {
+	return argc / 3;
+}
+
+64 bits Debug
+hello.o:
+(__TEXT,__text) section
+0000000000000000 55 48 89 e5 89 7d fc 48 89 75 f0 8b 45 fc b9 ab 
+0000000000000010 aa aa aa 89 45 e4 f7 e9 8b 45 e4 8d 04 02 89 c1 
+0000000000000020 c1 e9 1f d1 f8 8d 04 08 89 45 e8 89 45 ec 8b 45 
+0000000000000030 ec 5d c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	pushq	%rbp
+0000000000000001	movq	%rsp, %rbp
+0000000000000004	movl	%edi, -4(%rbp)
+0000000000000007	movq	%rsi, -16(%rbp)
+000000000000000b	movl	-4(%rbp), %eax
+000000000000000e	movl	$2863311531, %ecx
+0000000000000013	movl	%eax, -28(%rbp)
+0000000000000016	imull	%ecx
+0000000000000018	movl	-28(%rbp), %eax
+000000000000001b	leal	(%rdx,%rax), %eax
+000000000000001e	movl	%eax, %ecx
+0000000000000020	shrl	$31, %ecx
+0000000000000023	sarl	%eax
+0000000000000025	leal	(%rax,%rcx), %eax
+0000000000000028	movl	%eax, -24(%rbp)
+000000000000002b	movl	%eax, -20(%rbp)
+000000000000002e	movl	-20(%rbp), %eax
+0000000000000031	popq	%rbp
+0000000000000032	ret
+32 bits Debug
+hello.o:
+(__TEXT,__text) section
+00000000 55 89 e5 83 ec 14 8b 45 0c 8b 4d 08 89 4d fc 89 
+00000010 45 f8 8b 45 fc b9 ab aa aa aa 89 45 ec f7 e9 8b 
+00000020 45 ec 8d 04 02 89 c1 c1 e9 1f d1 f8 8d 04 08 89 
+00000030 45 f0 89 45 f4 8b 45 f4 83 c4 14 5d c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	pushl	%ebp
+00000001	movl	%esp, %ebp
+00000003	subl	$20, %esp
+00000006	movl	12(%ebp), %eax
+00000009	movl	8(%ebp), %ecx
+0000000c	movl	%ecx, -4(%ebp)
+0000000f	movl	%eax, -8(%ebp)
+00000012	movl	-4(%ebp), %eax
+00000015	movl	$2863311531, %ecx
+0000001a	movl	%eax, -20(%ebp)
+0000001d	imull	%ecx
+0000001f	movl	-20(%ebp), %eax
+00000022	leal	(%edx,%eax), %eax
+00000025	movl	%eax, %ecx
+00000027	shrl	$31, %ecx
+0000002a	sarl	%eax
+0000002c	leal	(%eax,%ecx), %eax
+0000002f	movl	%eax, -16(%ebp)
+00000032	movl	%eax, -12(%ebp)
+00000035	movl	-12(%ebp), %eax
+00000038	addl	$20, %esp
+0000003b	popl	%ebp
+0000003c	ret
+64 bits Release
+hello.o:
+(__TEXT,__text) section
+0000000000000000 b9 ab aa aa aa 89 f8 f7 e9 01 fa 89 d1 c1 e9 1f 
+0000000000000010 d1 fa 89 d0 01 c8 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	movl	$2863311531, %ecx
+0000000000000005	movl	%edi, %eax
+0000000000000007	imull	%ecx
+0000000000000009	addl	%edi, %edx
+000000000000000b	movl	%edx, %ecx
+000000000000000d	shrl	$31, %ecx
+0000000000000010	sarl	%edx
+0000000000000012	movl	%edx, %eax
+0000000000000014	addl	%ecx, %eax
+0000000000000016	ret
+32 bits Release
+hello.o:
+(__TEXT,__text) section
+00000000 8b 4c 24 04 ba ab aa aa aa 89 c8 f7 ea 01 d1 89 
+00000010 ca c1 ea 1f d1 f9 89 c8 01 d0 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	movl	4(%esp), %ecx
+00000004	movl	$2863311531, %edx
+00000009	movl	%ecx, %eax
+0000000b	imull	%edx
+0000000d	addl	%edx, %ecx
+0000000f	movl	%ecx, %edx
+00000011	shrl	$31, %edx
+00000014	sarl	%ecx
+00000016	movl	%ecx, %eax
+00000018	addl	%edx, %eax
+0000001a	ret

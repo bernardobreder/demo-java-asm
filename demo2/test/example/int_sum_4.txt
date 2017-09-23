@@ -1,0 +1,70 @@
+
+int main(int argc, char** argv) {
+	return argc + 0x12345678;
+}
+
+64 bits Debug
+hello.o:
+(__TEXT,__text) section
+0000000000000000 55 48 89 e5 89 7d fc 48 89 75 f0 8b 45 fc 05 78 
+0000000000000010 56 34 12 89 45 e8 8b 45 e8 89 45 ec 8b 45 ec 5d 
+0000000000000020 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	pushq	%rbp
+0000000000000001	movq	%rsp, %rbp
+0000000000000004	movl	%edi, -4(%rbp)
+0000000000000007	movq	%rsi, -16(%rbp)
+000000000000000b	movl	-4(%rbp), %eax
+000000000000000e	addl	$305419896, %eax
+0000000000000013	movl	%eax, -24(%rbp)
+0000000000000016	movl	-24(%rbp), %eax
+0000000000000019	movl	%eax, -20(%rbp)
+000000000000001c	movl	-20(%rbp), %eax
+000000000000001f	popq	%rbp
+0000000000000020	ret
+32 bits Debug
+hello.o:
+(__TEXT,__text) section
+00000000 55 89 e5 83 ec 10 8b 45 0c 8b 4d 08 89 4d fc 89 
+00000010 45 f8 8b 45 fc 05 78 56 34 12 89 45 f0 8b 45 f0 
+00000020 89 45 f4 8b 45 f4 83 c4 10 5d c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	pushl	%ebp
+00000001	movl	%esp, %ebp
+00000003	subl	$16, %esp
+00000006	movl	12(%ebp), %eax
+00000009	movl	8(%ebp), %ecx
+0000000c	movl	%ecx, -4(%ebp)
+0000000f	movl	%eax, -8(%ebp)
+00000012	movl	-4(%ebp), %eax
+00000015	addl	$305419896, %eax
+0000001a	movl	%eax, -16(%ebp)
+0000001d	movl	-16(%ebp), %eax
+00000020	movl	%eax, -12(%ebp)
+00000023	movl	-12(%ebp), %eax
+00000026	addl	$16, %esp
+00000029	popl	%ebp
+0000002a	ret
+64 bits Release
+hello.o:
+(__TEXT,__text) section
+0000000000000000 8d 87 78 56 34 12 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+0000000000000000	leal	305419896(%rdi), %eax
+0000000000000006	ret
+32 bits Release
+hello.o:
+(__TEXT,__text) section
+00000000 b8 78 56 34 12 03 44 24 04 c3 
+hello.o:
+(__TEXT,__text) section
+_main:
+00000000	movl	$305419896, %eax
+00000005	addl	4(%esp), %eax
+00000009	ret
